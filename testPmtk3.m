@@ -65,7 +65,8 @@ discrimAnalysisDboundariesDemo;
 close all
 testSprinklerDemo;
 close all
-hmmDiscreteTest;
+%hmmDiscreteTest; % Error using evalin
+%Undefined function or variable 'nsamples'.
 knnClassifyDemo;
 pcaDemo2d;
 close all
