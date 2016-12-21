@@ -18,8 +18,9 @@ end
 
 
 %% change to the directory storing this function, (should be PMTK3 root).
-w = which(mfilename()); 
-thisDir = fileparts(w);
+%w = which(mfilename('fullpath')); %mod on 9/12/15 
+w = which('initPmtk3');
+[thisDir,~,~] = fileparts(w);
 cd(thisDir);
 addpath(thisDir);
 
@@ -46,7 +47,7 @@ if exist(source, 'dir')
     fprintf('adding %s to path\n', source);
 end
 if ~(exist('pmtkSupportRoot', 'file') == 2)
-    downloadAllSupport();
+    downloadAllSupport(fullfile(thisDir,'pmtksupportCopy'),false);
 end
 
 %% include graphViz 

@@ -23,7 +23,7 @@ trueModel.pi = [0.8 0.1 0.1 0];
 trueModel.type = 'discrete';
 %% Sample
 len = 100;
-[observed, hidden] = hmmSample(trueModel, len);
+[observed, hidden] = hmmSample(trueModel, len); %added 3 to inarg, 9/12/15
 
 %% Learn the model using EM with random restarts
 nrestarts = 2;
