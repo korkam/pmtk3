@@ -26,15 +26,15 @@ funObj = @(w) funObjXy(w, X, y);
 opt.verbose = 'none';
 opt.method = 'lbfgs'
 opt.derivativeCheck = 'on';
-[wopt, fopt, exitflag, outputOpt] = minfunc(funObj, w0, opt);
+[wopt, fopt, exitflag, outputOpt] = minFunc(funObj, w0, opt);
 outputOpt.trace.fval'
 what = X\y
 
 [w, f, exitflag, output] = stochgradSimple(funObjXy, w0, options, X, y);
 trace = output.trace; 
-[fvalTraceAvg, fvalTrace] = stochgradTracePostprocess(trace, funObjXy, X, y);
+[fvalTrace, fvalTraceAvg] = stochgradTracePostprocess(trace, funObjXy, X, y);
  
-contoursSSEdemo(true);
+contoursSSEdemo;
 whist2 = trace.params';
 hold on
 plot(whist2(1,:), whist2(2,:), 'ko-', 'linewidth',2);

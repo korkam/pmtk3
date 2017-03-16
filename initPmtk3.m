@@ -1,8 +1,9 @@
 
 %% Run this script to initialize PMTK3
-% foofoo
 
 % This file is from pmtk3.googlecode.com
+ 
+set(0,'DefaultAxesFontSize',15,'DefaultTextFontSize',15);
 
 format compact
 more   off; % especially important in Octave - init may fail without it
@@ -32,8 +33,10 @@ include(fullfile(thisDir, 'pmtkTools'));
 include(fullfile(thisDir, 'matlabTools')); 
 include(fullfile(thisDir, 'toolbox')); 
 include(fullfile(thisDir, 'demos')); 
-include(fullfile(thisDir, 'pmtkdataSmall')); 
-include(fullfile(thisDir, 'pmtkdataCopy'));             % may be initially empty
+include(fullfile(thisDir, 'data'));
+include(fullfile(thisDir, 'bigData'));
+%include(fullfile(thisDir, 'pmtkdataSmall')); 
+%include(fullfile(thisDir, 'pmtkdataCopy'));             % may be initially empty
 include(fullfile(thisDir, 'pmtksupportCopy')); % may be initially empty
 if exist(fullfile(thisDir, 'docs', 'tutorial'), 'dir')
     include(fullfile(thisDir, 'docs', 'tutorial')); 
@@ -47,7 +50,11 @@ if exist(source, 'dir')
     fprintf('adding %s to path\n', source);
 end
 if ~(exist('pmtkSupportRoot', 'file') == 2)
+<<<<<<< HEAD
     downloadAllSupport(fullfile(thisDir,'pmtksupportCopy'),false);
+=======
+    downloadAllSupport(fullfile(pmtk3Root(), 'pmtksupportCopy'), false);
+>>>>>>> probml/master
 end
 
 %% include graphViz 

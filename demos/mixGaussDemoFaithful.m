@@ -8,8 +8,21 @@ function mixGaussDemoFaithful
 
 setSeed(0);
 K = 2;
-X = loadData('faithful');
-X = standardizeCols(X);
+
+dataset = 'heightWeight';
+
+if strcmp(dataset, 'faithful')
+    X = loadData('faithful');
+    X = standardizeCols(X);
+    maxIter = 10;
+end
+if strcmp(dataset, 'heightWeight')
+    rawdata = loadData('heightWeight');
+    X = [rawdata(:,2) rawdata(:,3)]; % height, weight
+    X = standardizeCols(X);
+    maxIter = 5;
+end
+
 [N,D] = size(X);
 
 % specify initial params to make for a pretty plot
@@ -23,14 +36,13 @@ plotfn(model, X, struct('weights', mkStochastic(ones(N,K))), -inf, 0);
 
 % Fit
 [model, loglikHist] = mixGaussFit(X, K,   'initParams', initParams, ...
-  'maxIter', 10, 'plotfn', @plotfn); 
+  'maxIter', maxIter, 'plotfn', @plotfn); 
 
 % Plot objective function
 figure;
 plot(loglikHist, 'o-', 'linewidth', 3)
 xlabel('iter')
 ylabel('average loglik')
-end
 
 function plotfn(model, X, ess, loglik, iter)
 post = ess.weights; mu = model.cpd.mu; Sigma = model.cpd.Sigma;
@@ -50,9 +62,12 @@ end
 title(str)
 axis equal
 box on
-set(gca, 'YTick', -2:2);
+%set(gca, 'YTick', -2:2);
 %pause
+fname = sprintf('mixGaussDemo_%s_iter%d', dataset, iter);
+printPmtkFigure(fname);
 end
 
+end
 
 

@@ -4,15 +4,25 @@
 % This file is from pmtk3.googlecode.com
 
 
-function [X,y] = contoursSSEdemo(doPlot)
+function [X,y] = contoursSSEdemo(varargin)
 
-if nargin < 1, doPlot = false; end
+if nargin == 0
+    doPlot = true;
+else
+    doPlot = false;
+end
 
 setSeed(2);
 n = 20;
-x = randn(n,1);
-%x = (-3:0.5:3)';
-%n = length(x);
+if false
+    %x = randn(n,1);
+    x = linspace(-5, 5, n)';
+else
+    % if the data is not centered on 0, the regression problem becomes
+    % harder (less well conditioned).
+    x = linspace(1, 20, n)';
+end
+n = length(x);
 wtrue = [1 1];
 sigma = 1;
 y = wtrue(1) + wtrue(2)*x + sigma*randn(n,1);
@@ -32,7 +42,7 @@ m = length(w0);
 SS = sum(((ones(n,1)*w0 + x*w1) - repmat(y,1,m)).^2,1);
 SS = reshape(SS,nv,nv);
 
-if 0
+if doPlot
 figure;
 surf(v,v,SS)
 printPmtkFigure('linregSurfSSE')
@@ -52,7 +62,7 @@ axis square
 grid on
 xlabel('w0')
 ylabel('w1')
-if 0, printPmtkFigure('linRegContoursSSE'); end
+printPmtkFigure('linRegContoursSSE');
 end
 
 end
